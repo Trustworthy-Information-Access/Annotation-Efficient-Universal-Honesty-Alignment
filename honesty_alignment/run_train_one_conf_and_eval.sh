@@ -79,7 +79,7 @@ do
         greedy_epochs=15
     fi
 
-    for training_samples in 1000
+    for training_samples in 1000 2000 3000 5000 8000 10000 20000 30000 50000 80000 200000 0
     do
         if [ "$training_samples" -eq 0 ]; then
             tail_name=""
@@ -149,7 +149,7 @@ do
         greedy_epochs=15
     fi
 
-    for training_samples in 1000
+    for training_samples in 1000 2000 3000 5000 8000 10000 20000 30000 50000 80000 200000 0
     do
         if [ "$training_samples" -eq 0 ]; then
             tail_name=""
