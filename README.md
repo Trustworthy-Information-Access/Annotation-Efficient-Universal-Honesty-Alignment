@@ -44,8 +44,9 @@ To support annotation-efficient training, we introduce **Elicitation-Then-Calibr
 - then calibrates this confidence with a small set of correctness annotations. 
 
 <p align="center">
-  <img src="./imgs/EliCal.png", width=800, height=300>
+  <img src="./imgs/EliCal.png", width=800, height=400>
 </p>
+
 
 To support a large-scale study, we release **HonestyBench**
 
@@ -66,14 +67,15 @@ pip install -r requirements.txt
 
 ## Data
 
-We provide the QA pairs required for the experiments. These are converted from the original datasets using `data_preprocess/main.py`.
+We provide the QA pairs required for the experiments in `/data`. These are converted from the original datasets using `data_preprocess/main.py`.
 
 > The main purpose is to standardize the format, representing everything in `.jsonl`.
 >  For datasets that include a test set, we use the test set for evaluation; otherwise, we use the dev set.
 
 <p align="center">
-  <img src="./imgs/data.png", width=800, height=300>
+  <img src="./imgs/data.png", width=800, height=400>
 </p>
+
 
 ## Inference
 
@@ -193,6 +195,8 @@ If you see `_mlp` at the end of a script name, it means that only a classificati
 
 Experiments show that **EliCal achieves near-optimal alignment** **with only 1k correctness annotations** (∼0.18% of full supervision) and better alignment performance on unseen MMLU tasks than the calibration-only baseline, offering a scalable solution toward universal honesty alignment in LLMs.
 
+> We **provide all the plotting functions** used in the paper in `honesty_alignment/draw.py`.
+>
 > For more details, please refer to our paper.
 
 ## Citation
