@@ -23,7 +23,7 @@
 
 ## Table of Contents
 
-- [Programming Every Example: Lifting Pre-training Data Quality Like Experts at Scale](#programming-every-example-lifting-pre-training-data-quality-like-experts-at-scale)
+- [Annotation-Efficient Universal Honesty Alignment](#annotation-efficient-universal-honesty-alignment)
   - [🔥 News](#-news)
   - [Table of Contents](#table-of-contents)
   - [🚀 Introduction](#-introduction)
