@@ -25,13 +25,13 @@
 
 - [Annotation-Efficient Universal Honesty Alignment](#annotation-efficient-universal-honesty-alignment)
   - [🔥 News](#-news)
-  - [Table of Contents](#table-of-contents)
   - [🚀 Introduction](#-introduction)
   - [Setup](#setup)
   - [Data](#data)
   - [Inference](#inference)
   - [Honesty Alignment](#honesty-alignment)
   - [Evaluation](#evaluation)
+  - [Results](#results)
   - [Citation](#citation)
 
 ## 🚀 Introduction
