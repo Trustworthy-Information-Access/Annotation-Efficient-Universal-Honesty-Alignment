@@ -3,11 +3,10 @@
 <p align="center">
   <img src="./imgs/title.png", width=800>
 </p>
-
 <a href="https://huggingface.co/collections/Shiyunee/annotation-efficient-universal-honesty-alignment-68e0e648f9987db09bdc9162" target="_blank">
     <img alt="Models" src="https://img.shields.io/badge/🤗-HuggingFace Repo-blue" />
 </a>
-<a href="xxx" target="_blank">
+<a href="https://arxiv.org/abs/2510.17509" target="_blank">
     <img alt="Paper" src="https://img.shields.io/badge/📑-Paper-blue" />
 </a>
 <a href="https://opensource.org/license/apache-2-0" target="_blank">
