@@ -36,7 +36,7 @@
 
 ## 🚀 Introduction
 
-This paper proposes how to efficiently train a universal honesty model.
+[Annotation-Efficient Universal Honesty Alignment](https://arxiv.org/abs/2510.17509) proposes how to efficiently train a universal honesty model. This repository contains all the data and code required to reproduce our results. If you would like to obtain **HonestyBench** and **our trained models**, please visit: [ModelScope](https://modelscope.cn/collections/Annotation-Efficient-Universal-Honesty-Alignment-2cf77d2590094d).
 
 To support annotation-efficient training, we introduce **Elicitation-Then-Calibration (EliCal🛠️)**, a two-stage framework that
 
@@ -113,7 +113,7 @@ batchsize=1024
 
 We collect these data and organize them into the **HonestyBench** format. For each model and each dataset, there is a `.jsonl` file, where each line is a dictionary in the following format:
 
-> However, due to connectivity issues with Hugging Face , we have not been able to upload it yet, but this should be resolved soon (https://huggingface.co/datasets/Shiyunee/HonestyBench). If your goal is not to reproduce the paper, but rather to obtain large-scale QA data along with consistency scores and generation probability information, then HonestyBench would be a good choice.
+> However, due to connectivity issues with Hugging Face , we have not been able to upload it yet, but this is available on ModelScope. If your goal is not to reproduce the paper, but rather to obtain large-scale QA data along with consistency scores and generation probability information, then HonestyBench would be a good choice.
 
 ```json
 {
@@ -133,19 +133,60 @@ We collect these data and organize them into the **HonestyBench** format. For ea
 
 ## Honesty Alignment
 
-After completing the data preparation, we proceed with the honesty alignment training. Please note that the `RES_PATH` configured above is closely related to this step, so do not modify it arbitrarily.
+After completing the data preparation, we proceed with the honesty alignment training. Please note that the `RES_PATH` configured above is closely related to this step, so do not modify it arbitrarily. 
 
-We train three models to validate the effectiveness of EliCal. These models are:
+To preserve the model’s original capabilities while performing honesty alignment, we add **LoRA modules** to the model and include an additional **linear head** at the end to predict confidence scores. The architecture is:
 
-> Due to connectivity issues with Hugging Face , we have not been able to upload parameters after training yet, but this should be resolved soon.
+```python
+class LMWithVectorHead(nn.Module):
+    def __init__(self, model_name, lora_config, output_dim=1):
+        super().__init__()
+        backbone = AutoModel.from_pretrained(model_name, device_map='cpu')
+        # backbone.config.use_cache = False
+        self.peft_model = get_peft_model(backbone, lora_config)
+        self.config = backbone.config
+        hidden_size = backbone.config.hidden_size
+        self.vector_head = nn.Linear(hidden_size, output_dim)  # dim=1
 
-| Model Name           | Model Url                                                  | Parameters after Training                                   |
-| -------------------- | ---------------------------------------------------------- | ----------------------------------------------------------- |
-| Qwen2.5-7B-Instruct  | https://huggingface.co/Qwen/Qwen2.5-7B-Instruct            | https://huggingface.co/Shiyunee/Honest-Qwen2.5-7B-Instruct  |
-| Qwen2.5-14B-Instruct | https://huggingface.co/Qwen/Qwen2.5-14B-Instruct           | https://huggingface.co/Shiyunee/Honest-Qwen2.5-14B-Instruct |
-| Llama3-8B-Instruct   | https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct | https://huggingface.co/Shiyunee/Honest-Llama3-8B-Instruct   |
+    def gradient_checkpointing_enable(self, gradient_checkpointing_kwargs=None):
+        self.peft_model.enable_input_require_grads()
+        if gradient_checkpointing_kwargs is not None:
+            self.peft_model.gradient_checkpointing_enable(**gradient_checkpointing_kwargs)
+        else:
+            self.peft_model.gradient_checkpointing_enable()
 
-To avoid affecting the model’s original capabilities, we add a LoRA module and a classification head to the model and only train these two components.
+    def forward(self, input_ids, attention_mask=None, labels=None):
+        outputs = self.peft_model(
+            input_ids=input_ids,
+            attention_mask=attention_mask,
+            return_dict=True
+        )
+        # the internal state of the last input token (final layer)
+        last_hidden = outputs.last_hidden_state  # [B, T, H]
+        cls_hidden = last_hidden[:, -1, :]       # [B, H]
+        logits = self.vector_head(cls_hidden)    # [B, 1]
+        logits = torch.sigmoid(logits).squeeze(-1) 
+
+        loss = None
+        if labels is not None:
+            loss_fct = nn.MSELoss()  # MSE
+            loss = loss_fct(logits, labels)
+
+        return CausalLMOutput(
+            loss=loss,
+            logits=logits
+        )
+```
+
+We train three models to validate the effectiveness of EliCal. The base model parameters can be found under **Model URL** in the table below. The **LoRA modules** and **Linear Head** we trained are listed under **Parameters**.
+
+> Due to connectivity issues with Hugging Face , we have not been able to upload parameters yet. Nevertheless, we have made them available on ModelScope.
+
+| Model Name           | Model Url                                                  | Parameters                                                  | Parameters(ModelScope)                                       |
+| -------------------- | ---------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
+| Qwen2.5-7B-Instruct  | https://huggingface.co/Qwen/Qwen2.5-7B-Instruct            | https://huggingface.co/Shiyunee/Honest-Qwen2.5-7B-Instruct  | https://modelscope.cn/models/ShiyuNee/Honest-Qwen2.5-7B-Instruct |
+| Qwen2.5-14B-Instruct | https://huggingface.co/Qwen/Qwen2.5-14B-Instruct           | https://huggingface.co/Shiyunee/Honest-Qwen2.5-14B-Instruct | https://modelscope.cn/models/ShiyuNee/Honest-Qwen2.5-14B-Instruct |
+| Llama3-8B-Instruct   | https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct | https://huggingface.co/Shiyunee/Honest-Llama3-8B-Instruct   | https://modelscope.cn/models/ShiyuNee/Honest-Llama3-8B-Instruct |
 
 You can reproduce them with the following command:
 
