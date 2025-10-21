@@ -18,6 +18,7 @@
 
 ## 🔥 News
 
+- **\[22 October, 2025]:** 🎉 We release HonestyBench and Trained Models on [ModelScope](https://modelscope.cn/collections/Annotation-Efficient-Universal-Honesty-Alignment-2cf77d2590094d)!
 - **[21 October, 2025]:** 🎉 We release the paper [Annotation-Efficient Universal Honesty Alignment](https://arxiv.org/abs/2510.17509)!
 
 ## Table of Contents
