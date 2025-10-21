@@ -19,7 +19,7 @@
 
 ## 🔥 News
 
-- **[21 October, 2025]:** 🎉 We release the paper Annotation-Efficient Universal Honesty Alignment!
+- **[21 October, 2025]:** 🎉 We release the paper [Annotation-Efficient Universal Honesty Alignment](https://arxiv.org/abs/2510.17509)!
 
 ## Table of Contents
 
@@ -201,8 +201,4 @@ Experiments show that **EliCal achieves near-optimal alignment** **with only 1k 
 
 ## Citation
 
-If you find our repository useful, please consider giving it a star. 🚀✨. Please cite the paper if you find our work helpful:
-
-```bibtex
-
-```
+If you find our repository useful, please consider giving it a star. 🚀✨. Please cite the paper if you find our work helpful.
