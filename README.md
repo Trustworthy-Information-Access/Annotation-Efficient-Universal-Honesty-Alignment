@@ -18,7 +18,8 @@
 
 ## 🔥 News
 
-- **\[22 October, 2025]:** 🎉 We release HonestyBench and Trained Models on [ModelScope](https://modelscope.cn/collections/Annotation-Efficient-Universal-Honesty-Alignment-2cf77d2590094d)!
+- **\[22 October, 2025]:** 🎉 We release HonestyBench and Trained Models on [Huggingface](https://huggingface.co/collections/Shiyunee/annotation-efficient-universal-honesty-alignment-68e0e648f9987db09bdc9162)!
+- **\[21 October, 2025]:** 🎉 We release HonestyBench and Trained Models on [ModelScope](https://modelscope.cn/collections/Annotation-Efficient-Universal-Honesty-Alignment-2cf77d2590094d)!
 - **[21 October, 2025]:** 🎉 We release the paper [Annotation-Efficient Universal Honesty Alignment](https://arxiv.org/abs/2510.17509)!
 
 ## Table of Contents
@@ -113,7 +114,7 @@ batchsize=1024
 
 We collect these data and organize them into the **HonestyBench** format. For each model and each dataset, there is a `.jsonl` file, where each line is a dictionary in the following format:
 
-> However, due to connectivity issues with Hugging Face , we have not been able to upload it yet, but this is available on ModelScope. If your goal is not to reproduce the paper, but rather to obtain large-scale QA data along with consistency scores and generation probability information, then HonestyBench would be a good choice.
+> If your goal is not to reproduce the paper, but rather to obtain large-scale QA data along with consistency scores and generation probability information, then HonestyBench would be a good choice.
 
 ```json
 {
@@ -179,8 +180,6 @@ class LMWithVectorHead(nn.Module):
 ```
 
 We train three models to validate the effectiveness of EliCal. The base model parameters can be found under **Model URL** in the table below. The **LoRA modules** and **Linear Head** we trained are listed under **Parameters**.
-
-> Due to connectivity issues with Hugging Face , we have not been able to upload parameters yet. Nevertheless, we have made them available on ModelScope.
 
 | Model Name           | Model Url                                                  | Parameters                                                  | Parameters(ModelScope)                                       |
 | -------------------- | ---------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
