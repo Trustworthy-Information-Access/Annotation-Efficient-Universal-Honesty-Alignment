@@ -242,3 +242,13 @@ Experiments show that **EliCal achieves near-optimal alignment** **with only 1k 
 ## Citation
 
 If you find our repository useful, please consider giving it a star. 🚀✨. Please cite the paper if you find our work helpful.
+
+```sh
+@article{ni2025annotation,
+  title={Annotation-Efficient Universal Honesty Alignment},
+  author={Ni, Shiyu and Bi, Keping and Guo, Jiafeng and Tang, Minghao and Wu, Jingtong and Han, Zengxin and Cheng, Xueqi},
+  journal={arXiv preprint arXiv:2510.17509},
+  year={2025}
+}
+```
+
