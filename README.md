@@ -18,6 +18,7 @@
 
 ## 🔥 News
 
+- **[March, 2026]:** 🎉 HonestyBench has exceeded **1k** downloads.
 - **\[26 January, 2026]:** 🎉 This paper has been accepted by **ICLR 2026**!
 - **\[22 October, 2025]:** 🎉 We release HonestyBench and Trained Models on [Huggingface](https://huggingface.co/collections/Shiyunee/annotation-efficient-universal-honesty-alignment-68e0e648f9987db09bdc9162)!
 - **\[21 October, 2025]:** 🎉 We release HonestyBench and Trained Models on [ModelScope](https://modelscope.cn/collections/Annotation-Efficient-Universal-Honesty-Alignment-2cf77d2590094d)!
